@@ -6,28 +6,10 @@ pipeline{
     stages{
         stage(" git check_out "){
             steps{
-                git branch: "main" , url: " " 
+                git branch: "main" , url: "https://github.com/BandiHimabinduReddy/3-tier-Application.git" 
             }
         }
-       /* stage(" testing "){
-            steps{
-                sh "mvn test"
-            }
-        }
-        stage("build"){
-            steps{
-              sh 'mvn compile' && 'mvn clean package'
-            }
-        }
-         stage('Static code analysis'){
-            steps{
-                script{
-                    withSonarQubeEnv(credentialsId: 'sonar-api') {
-                         sh 'mvn clean package sonar:sonar'
-                        }
-                   }
-                }
-            }*/
+       
         stage('Docker Build') {
              steps{
                   script {
@@ -48,13 +30,7 @@ pipeline{
                     }
                 }
         }
-       /* stage('Docker Run') {
-              steps{
-                   script {
-                sh 'docker run -d -p 8096:8080 --rm --name myContainer 180009188669.dkr.ecr.us-east-1.amazonaws.com/jenkins:latest'     
-                    }
-                }
-            }*/
+       
         stage('Start container') {
           steps {
             sh 'docker compose up -d --no-color --wait'
